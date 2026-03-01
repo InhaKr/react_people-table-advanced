@@ -95,6 +95,7 @@ export const PeoplePage = () => {
               {!isLoading && people.length > 0 && (
                 <PeopleTable
                   people={filteredPeople}
+                  allPeople={people}
                   selectedPeople={selectedPeople}
                 />
               )}

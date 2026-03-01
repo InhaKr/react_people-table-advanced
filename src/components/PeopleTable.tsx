@@ -7,10 +7,13 @@ import { Person } from '../types';
 
 export interface Props {
   selectedPeople: string | undefined;
-  people: Person[];
+  people: Person[]; // отфильтрованные для отображения
+  allPeople: Person[]; // полный список для поиска родителей
 }
 
-export const PeopleTable: React.FC<Props> = ({ people, selectedPeople }) => {
+export const PeopleTable: React.FC<Props> = (
+  { people, allPeople, selectedPeople }) => {
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const sortField = searchParams.get('sort') as keyof Person | null;
@@ -172,8 +175,8 @@ export const PeopleTable: React.FC<Props> = ({ people, selectedPeople }) => {
 
       <tbody>
         {visiblePeople.map(person => {
-          const mother = people.find(p => p.name === person.motherName);
-          const father = people.find(p => p.name === person.fatherName);
+          const mother = allPeople.find(p => p.name === person.motherName);
+          const father = allPeople.find(p => p.name === person.fatherName);
 
           return (
             <tr
